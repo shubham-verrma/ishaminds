@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IshaMinds | Transform Your Mind, Transform Your Life</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --color-a: rgb(207,231,234);
+  --color-b: rgb(248,214,92);
+  --bg: #ffffff;
+  --text: #0a0a0a;
+  --muted: #3f3f3f;
+  --border: rgba(0,0,0,0.08);
+  --shadow: 0 10px 26px rgba(0,0,0,0.08);
+  --radius: 18px;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --max-width: 1180px;
+  --fs-hero: clamp(2.2rem, 4vw, 3rem);
+  --fs-h2: clamp(1.6rem, 3vw, 2.2rem);
+  --fs-h3: 1.25rem;
+  --fs-body: 1rem;
+  --fs-small: 0.9rem;
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-2px); }
+  40% { transform: translateX(2px); }
+  60% { transform: translateX(-1px); }
+  80% { transform: translateX(1px); }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Urbanist', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 17px;
+  font-weight: 550;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  padding-bottom: 120px; /* reserve space for sticky CTA strip */
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+a:focus-visible { outline: 2px solid var(--color-b); outline-offset: 3px; border-radius: 8px; }
+.skip-link {
+  position: absolute; left: -999px; top: auto;
+  background: var(--color-b); color: #000; padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius); z-index: 999; font-weight: 600;
+}
+.skip-link:focus { left: var(--space-16); top: var(--space-16); outline: 2px solid #000; }
+.container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-16); }
+.section { padding: 72px 0; }
+.section--tint-teal, .section--tint-yellow { width: 100vw; margin-left: calc(50% - 50vw); position: relative; overflow: hidden; }
+.section--tint-teal::before, .section--tint-yellow::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.6), transparent 40%),
+              radial-gradient(circle at 80% 0%, rgba(0,0,0,0.05), transparent 45%);
+  opacity: 0.45; pointer-events: none;
+}
+.section--tint-teal { background: var(--color-a); }
+.section--tint-yellow { background: linear-gradient(135deg, rgba(248,214,92,0.9), #fff3c2); }
+h1,h2,h3,h4 { margin: 0 0 var(--space-16); color: var(--text); line-height: 1.2; }
+h1 { font-size: clamp(44px, 5vw, 64px); line-height: 1.08; font-weight: 820; }
+h2 { font-size: clamp(28px, 3.2vw, 40px); line-height: 1.22; font-weight: 820; text-align: center; }
+h3 { font-size: var(--fs-h3); font-weight: 680; }
+p { margin: 0 0 var(--space-16); color: var(--muted); font-size: var(--fs-body); line-height: 1.75; }
+small, .microcopy { color: #333; font-size: var(--fs-small); line-height: 1.5; }
+.section-intro, p { max-width: 760px; }
+.section-title { display: flex; align-items: center; justify-content: center; flex-direction: column; gap: var(--space-8); flex-wrap: wrap; margin-bottom: var(--space-12); text-align: center; }
+.section-head { padding-top: 48px; margin-bottom: 28px; text-align: center; }
+.section-head .section-intro { margin-top: var(--space-12); }
+@media(max-width: 640px) {
+  .section { padding: 56px 0; }
+  .section-head { padding-top: 28px; margin-bottom: 20px; }
+}
+.section-intro { color: var(--muted); margin: 0 auto var(--space-16); max-width: 760px; text-align: center; }
+button, .btn {
+  border: none; cursor: pointer; border-radius: 999px; font-weight: 600;
+  padding: var(--space-12) var(--space-24); font-size: 1rem;
+  transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease;
+}
+.cta-wrap { width: 100%; display: flex; justify-content: center; align-items: center; gap: var(--space-12); text-align: center; }
+.btn-primary {
+  position: relative;
+  background: #0B1F3A;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 10px 28px rgba(11,31,58,0.35);
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: "";
+  position: absolute; inset: -20%; transform: translateX(-120%) rotate(20deg);
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.35), rgba(255,255,255,0));
+  transition: transform .6s ease;
+}
+.btn-primary:hover::after { transform: translateX(120%) rotate(20deg); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(11,31,58,0.4); }
+.btn-primary:active { transform: translateY(-1px); }
+.btn:focus-visible {
+  outline: 2px solid var(--color-b);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(248,214,92,0.35);
+}
+.btn-secondary {
+  background: var(--color-a); color: #000; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+}
+.btn-secondary:hover { transform: translateY(-2px); }
+.btn-link { background: transparent; color: #000; padding: 0; font-weight: 600; }
+.service-card .btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--space-12);
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: #0B1F3A;
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 10px 26px rgba(11,31,58,0.28);
+  transition: transform 200ms cubic-bezier(0.2,0.8,0.2,1), box-shadow 200ms cubic-bezier(0.2,0.8,0.2,1);
+}
+.service-card .btn-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(11,31,58,0.32);
+}
+.service-card .btn-link:active { transform: translateY(-1px); }
+.navbar {
+  position: sticky; top: 0; z-index: 98;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.92);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+}
+.navbar a:focus-visible { outline: 2px solid var(--color-b); outline-offset: 4px; border-radius: 10px; }
+@supports not ((backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px))) {
+  .navbar { background: #fff; }
+}
+.navbar.scrolled { background: rgba(255,255,255,0.96); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+.nav-content { display: flex; align-items: center; justify-content: space-between; padding: var(--space-12) 0; position: relative; }
+.brand img { height: 36px; width: auto; display: block; }
+.mobile-cta-nav { display: none; }
+.nav-links { display: flex; gap: var(--space-16); align-items: center; }
+.progress-bar {
+  position: absolute; bottom: 0; left: 0; height: 3px; background: linear-gradient(90deg,#000,var(--color-b));
+  width: 0%;
+  border-radius: 6px;
+}
+.hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.hero-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  filter: brightness(0.8);
+}
+.hero-grid { position: relative; z-index: 1; min-height: 70vh; display: grid; place-items: center; text-align: center; }
+.hero-title-simple { color: #fff; text-shadow: 0 4px 18px rgba(0,0,0,0.38); font-size: clamp(40px, 6vw, 70px); line-height: 1.05; font-weight: 840; margin: 0; }
+.hero-strap { color: rgba(255,255,255,0.9); background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.2); border-radius: 999px; padding: 10px 16px; font-size: 13px; letter-spacing: 0.08em; font-weight: 700; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: inline-flex; gap: 6px; align-items: center; }
+.hero-cta-row button, .hero-cta-row a.btn { transition: transform 220ms cubic-bezier(0.2,0.8,0.2,1), box-shadow 220ms cubic-bezier(0.2,0.8,0.2,1); }
+.hero-cta-row .btn-primary, .hero-cta-row .btn-secondary { background: rgba(255,255,255,0.9); color: #000; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+.hero-cta-row .btn-primary:hover, .hero-cta-row .btn-secondary:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(0,0,0,0.16); }
+.hero-cta-row .btn-primary:active, .hero-cta-row .btn-secondary:active { transform: translateY(-1px) scale(0.995); box-shadow: 0 8px 18px rgba(0,0,0,0.14); }
+.trust {
+  display: flex; gap: var(--space-8); align-items: center; color: #333; font-weight: 600;
+}
+.badge {
+  background: var(--color-a); padding: var(--space-8) var(--space-12); border-radius: 999px; font-weight: 600; display: inline-flex; align-items: center; gap: var(--space-8);
+}
+.benefits {
+  display: grid; gap: var(--space-16);
+}
+@media(min-width: 600px) { .benefits { grid-template-columns: repeat(3,1fr); } }
+.card {
+  background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 22px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transition: transform 220ms cubic-bezier(0.2,0.8,0.2,1), box-shadow 220ms cubic-bezier(0.2,0.8,0.2,1), border-color 220ms cubic-bezier(0.2,0.8,0.2,1);
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.08); border-color: rgba(0,0,0,0.08); }
+.card:active { transform: translateY(-1px); }
+.card-title { font-weight: 700; color: #111; margin-bottom: var(--space-8); }
+.audience {
+  background: var(--color-a);
+  border-radius: 0;
+}
+.chips {
+  display: grid; gap: var(--space-12);
+}
+@media(min-width: 700px) { .chips { grid-template-columns: repeat(3,1fr); } }
+.chip {
+  padding: var(--space-12) var(--space-16);
+  background: rgba(255,255,255,0.8);
+  border-radius: var(--radius);
+  border: 1px solid rgba(0,0,0,0.06);
+  font-weight: 600;
+}
+.list {
+  display: grid; gap: var(--space-12);
+}
+.list-item { display: grid; grid-template-columns: auto 1fr; gap: var(--space-12); align-items: start; }
+.icon {
+  width: 34px; height: 34px; display: grid; place-items: center;
+  border-radius: 12px; background: #f3f3f3; font-weight: 700;
+}
+.before-after {
+  display: grid; gap: var(--space-12); margin-top: var(--space-16);
+}
+@media(min-width: 640px) { .before-after { grid-template-columns: repeat(2,1fr); } }
+.service-grid {
+  display: grid; gap: 20px;
+}
+@media(min-width: 900px) { .service-grid { grid-template-columns: repeat(2,1fr); gap: 28px; } }
+@media(min-width: 1200px) { .service-grid { grid-template-columns: repeat(3,1fr); gap: 32px; } }
+.service-card h3 { margin-bottom: var(--space-8); }
+.section-title { display: flex; align-items: baseline; gap: var(--space-12); flex-wrap: wrap; }
+.section-eyebrow { font-weight: 700; color: #555; letter-spacing: 0.08em; text-transform: uppercase; font-size: 12px; text-align: center; display: block; }
+.reveal .section-eyebrow { transform: translateY(6px); transition: transform .45s cubic-bezier(0.2,0.8,0.2,1); }
+.reveal.visible .section-eyebrow { transform: translateY(0); }
+.two-col {
+  display: grid; gap: var(--space-24);
+}
+@media(min-width: 900px) { .two-col { grid-template-columns: 1fr 1.2fr; align-items: center; } }
+.img-placeholder {
+  width: 100%; padding-top: 70%;
+  background: linear-gradient(135deg, rgba(207,231,234,0.6), rgba(248,214,92,0.6));
+  border-radius: var(--radius);
+  border: 1px dashed rgba(0,0,0,0.15);
+  position: relative;
+  overflow: hidden;
+}
+.img-placeholder::after {
+  content: "Image Placeholder";
+  position: absolute; inset: 0; display: grid; place-items: center; color: #333; font-weight: 700; letter-spacing: 0.5px;
+}
+.book-section {
+  background: linear-gradient(135deg, rgba(248,214,92,0.9), #fff);
+}
+.book {
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+}
+.book-grid {
+  display: grid; gap: var(--space-16);
+}
+@media(min-width: 820px) { .book-grid { grid-template-columns: 1.2fr 0.8fr; align-items: center; } }
+@media(max-width: 819px) {
+  .book-grid { grid-template-columns: 1fr; }
+  .book-grid > div:first-child { order: 2; }
+  .book-grid > div:last-child { order: 1; }
+  .book-grid { text-align: center; }
+}
+.testimonials {
+  display: grid; gap: 20px;
+}
+@media(min-width: 900px) { .testimonials { grid-template-columns: repeat(2,1fr); gap: 28px; } }
+@media(min-width: 1200px) { .testimonials { grid-template-columns: repeat(3,1fr); gap: 32px; } }
+.testimonial-stars { display: flex; gap: 4px; margin-bottom: var(--space-8); color: #f5b400; font-size: 14px; }
+.testimonial-pair { display: grid; gap: 12px; min-width: 82vw; scroll-snap-align: center; padding: var(--space-8); box-sizing: border-box; }
+@media(max-width: 640px) {
+  .testimonials-wrapper { overflow-x: auto; display: flex; gap: 12px; scroll-snap-type: x mandatory; padding: 0 10px 8px; margin: 0 -10px; scroll-behavior: smooth; }
+  .testimonials { display: flex; flex-direction: row; gap: 12px; width: 100%; }
+  .testimonials .card { min-width: 90vw; flex: 0 0 90vw; scroll-snap-align: center; }
+  .swipe-hint { display: inline-flex; align-items: center; gap: 6px; color: #4a4a4a; font-size: 13px; margin-bottom: 8px; }
+  .hero .cta-wrap { justify-content: flex-start !important; }
+  .hero .hero-cta-row { justify-content: center; }
+  .hero .hero-cta-row { flex-direction: column; align-items: center; }
+  .hero .hero-cta-row .btn { width: 100%; max-width: 320px; text-align: center; }
+  .hero .hero-cta-row .btn + .btn { margin-top: var(--space-8); }
+}
+.featured {
+  grid-column: span 2;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 1.2);
+  padding: var(--space-24);
+  box-shadow: var(--shadow);
+}
+.stars { display: flex; gap: 4px; margin-bottom: var(--space-8); }
+.star {
+  width: 16px; height: 16px; background: linear-gradient(90deg,#000,var(--color-b));
+  clip-path: polygon(50% 0%, 63% 38%, 100% 38%, 69% 59%, 82% 100%, 50% 75%, 18% 100%, 31% 59%, 0 38%, 37% 38%);
+}
+.media-grid {
+  display: grid; gap: var(--space-16);
+}
+@media(min-width: 900px) { .media-grid { grid-template-columns: repeat(2,1fr); } }
+.media-tile {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  background: #f7f7f7;
+}
+.media-tile video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
+}
+.accordion { border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.05); }
+.accordion-item + .accordion-item { border-top: 1px solid var(--border); }
+.accordion-button {
+  width: 100%; text-align: left; background: #fff;
+  padding: var(--space-16); font-weight: 700; display: flex; justify-content: space-between; align-items: center;
+}
+.accordion-button:focus { outline: 2px solid #000; outline-offset: -4px; }
+.accordion-panel { max-height: 0; overflow: hidden; transition: max-height 0.25s ease; background: #fafafa; padding: 0 var(--space-16); }
+.accordion-panel.open { padding: var(--space-16); }
+.bonus {
+  background: var(--color-a);
+  border-radius: 0;
+  box-shadow: var(--shadow);
+}
+.band {
+  margin: var(--space-48) 0 var(--space-16);
+  background: #111; color: #fff; border-radius: var(--radius);
+  padding: var(--space-16); display: flex; align-items: center; justify-content: space-between; gap: var(--space-12);
+}
+@media(max-width: 640px) {
+  .nav-links { display: none; }
+  .mobile-cta-nav { display: inline-flex; align-items: center; }
+  .band { flex-direction: column; align-items: flex-start; }
+  .sticky-cta-strip { padding: 4px 10px; }
+  .sticky-cta-strip .inner { justify-content: center; flex-direction: column; gap: 4px; }
+  .sticky-cta-strip .cta-note { padding: 2px 10px; margin: 0; width: 100%; text-align: center; font-size: 13px; line-height: 1.3; }
+  .sticky-cta-strip .btn-primary.strip-green { width: 100%; }
+  .mobile-cta-nav .btn { padding: 8px 14px; font-size: 0.95rem; }
+}
+.footer {
+  padding: var(--space-32) 0;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.sticky-cta-strip {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 97;
+  background: #fff;
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -8px 20px rgba(0,0,0,0.08);
+  padding: var(--space-12) var(--space-16);
+}
+.sticky-cta-strip .inner { max-width: 1180px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: var(--space-12); flex-wrap: wrap; text-align: center; }
+.sticky-cta-strip .cta-note {
+  background: rgba(193,18,31,0.1);
+  color: #8a111e;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: shake 1.8s ease-in-out infinite;
+}
+.strip-green {
+  background: #0a8f56 !important;
+  color: #fff !important;
+  border: 1px solid rgba(0,0,0,0.08) !important;
+  box-shadow: 0 10px 24px rgba(10,143,86,0.28) !important;
+}
+.strip-green:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(10,143,86,0.32) !important; }
+.strip-green:active { transform: translateY(-1px) scale(0.995); }
+.sticky-cta-strip .btn-primary.strip-green {
+  background: #0a8f56;
+  color: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 10px 24px rgba(10,143,86,0.28);
+}
+.sticky-cta-strip .btn-primary.strip-green:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(10,143,86,0.32); }
+.sticky-cta-strip .btn-primary.strip-green:active { transform: translateY(-1px) scale(0.995); }
+.ready { margin: var(--space-24) auto; width: 100%; max-width: 900px; background: rgba(10,143,86,0.08); border-radius: var(--radius); padding: var(--space-16); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-12); text-align: center; }
+@media(max-width: 640px) { .ready { flex-direction: column; align-items: center; } }
+.reveal { opacity: 0; transform: translateY(14px); filter: blur(6px); }
+.reveal.visible { opacity: 1; transform: translateY(0); filter: blur(0); transition: opacity .65s cubic-bezier(0.2,0.8,0.2,1), transform .65s cubic-bezier(0.2,0.8,0.2,1), filter .65s cubic-bezier(0.2,0.8,0.2,1); }
+[data-stagger] > * { opacity: 0; transform: translateY(12px) scale(1.02); filter: blur(4px); transition: opacity .55s cubic-bezier(0.2,0.8,0.2,1), transform .55s cubic-bezier(0.2,0.8,0.2,1), filter .55s cubic-bezier(0.2,0.8,0.2,1); }
+[data-stagger].visible > * { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+.reveal.visible .media-tile, [data-stagger].visible .media-tile { transform: scale(1); }
+.accordion-button span[aria-hidden="true"] { display: inline-block; transition: transform 240ms ease; }
+@media(max-width: 640px) {
+  body { padding-bottom: 96px; }
+  .sticky-cta-strip .inner { flex-direction: column; gap: 4px; }
+  .sticky-cta-strip .cta-note { padding: 2px 10px; margin: 0; width: 100%; text-align: center; font-size: 13px; line-height: 1.3; }
+  .sticky-cta-strip .btn-primary.strip-green { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  .reveal { opacity: 1 !important; transform: none !important; filter: none !important; }
+  [data-stagger] > * { opacity: 1 !important; transform: none !important; filter: none !important; }
+  .hero::before, .hero::after { animation: none !important; }
+  .sticky-cta-strip .cta-note { animation: none !important; }
+}
+@media(min-width: 900px) {
+  .section-head { text-align: center; margin-left: auto; margin-right: auto; }
+  .section-title { justify-content: center; align-items: center; text-align: center; }
+  .section-eyebrow, .section-intro { text-align: center; margin-left: auto; margin-right: auto; }
+}
+@media(min-width: 1024px) {
+  .cta-wrap { justify-content: center; }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav class="navbar" aria-label="Primary">
+  <div class="container nav-content">
+    <div class="brand"><img src="logo.png" alt="Isha Minds logo"></div>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#book">Book</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn btn-primary" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session</a>
+    </div>
+    <div class="mobile-cta-nav">
+      <a class="btn btn-primary" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session</a>
+    </div>
+    <div class="progress-bar" id="progress"></div>
+  </div>
+</nav>
+
+<main id="main">
+  <!-- Hero -->
+  <section class="section hero">
+    <div class="hero-media" aria-hidden="true">
+      <video src="background.mp4" autoplay loop muted playsinline preload="metadata"></video>
+    </div>
+    <div class="container hero-grid">
+      <div style="display:flex; flex-direction:column; align-items:center; gap: var(--space-16); transform: translateY(-10%);">
+        <div class="hero-strap reveal-hero">ICF & NLP Certified • 1:1 Transformation</div>
+        <h1 class="hero-title-simple reveal-hero" data-hero-line="1">Transform Your Mind,</h1>
+        <h1 class="hero-title-simple reveal-hero" data-hero-line="2">Transform Your Life</h1>
+        <div class="hero-cta-row reveal-hero cta-wrap" style="margin-top: var(--space-12);">
+          <a class="btn btn-primary" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session</a>
+          <a class="btn btn-secondary" href="#services" target="_blank" rel="noopener noreferrer" style="background: rgba(255,255,255,0.86); color: #000; border: 1px solid rgba(0,0,0,0.08); box-shadow: none;">Explore Services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container reveal" data-stagger="true" style="text-align:center;">
+      <div class="section-head">
+        <h2>Personalized coaching that blends ICF standards with NLP precision to unlock clarity, confidence, emotional regulation, and decisive action</h2>
+      </div>
+      <div class="benefits reveal" data-stagger="true" style="margin-top: var(--space-16); text-align:center;">
+        <div class="card" style="text-align:center;">
+          <div style="font-size:28px;">🧭</div>
+          <div class="card-title">Clarity</div>
+          <p>Define what you truly want and build a path that feels aligned.</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div style="font-size:28px;">💪</div>
+          <div class="card-title">Confidence</div>
+          <p>Shift self-talk and posture so you show up bold in every room.</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div style="font-size:28px;">🧘</div>
+          <div class="card-title">Calm</div>
+          <p>Tools to regulate emotions and navigate stress with ease.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Audience -->
+  <section class="section section--tint-teal audience">
+    <div class="container reveal">
+      <div class="card reveal" data-stagger="true">
+        <div class="section-head">
+          <div class="section-title">
+            <span class="section-eyebrow">Who this is for</span>
+            <h2>People ready to move from stuck to unstoppable</h2>
+          </div>
+          <p class="section-intro">Designed for humans with ambition and heart, navigating change and wanting steady guidance.</p>
+        </div>
+        <div class="chips reveal" data-stagger="true">
+          <div class="chip">👤 Overwhelmed professionals</div>
+          <div class="chip">🎯 Founders & creators</div>
+          <div class="chip">📘 Students & early career</div>
+          <div class="chip">🔁 Life transitions</div>
+          <div class="chip">🤝 Relationship stress</div>
+          <div class="chip">🧠 Low self-worth patterns</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container ready reveal" data-stagger="true" style="align-items:center; text-align:center;">
+    <div><strong>Ready?</strong> Book your Transformation Session and get a tailored action map.</div>
+    <a class="btn btn-primary strip-green" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session</a>
+  </div>
+
+  <!-- Pain Points -->
+  <section class="section">
+    <div class="container reveal">
+      <div class="section-head">
+        <div class="section-title">
+          <span class="section-eyebrow">What’s in the way</span>
+          <h2>Probable pain points we’ll solve together</h2>
+        </div>
+        <p class="section-intro">Name the friction, neutralize it, and replace it with simple, repeatable tools.</p>
+      </div>
+      <div class="card reveal" data-stagger="true">
+        <div class="list">
+          <div class="list-item"><span class="icon">⚡️</span><p>Constant overthinking and decision fatigue slowing your progress.</p></div>
+          <div class="list-item"><span class="icon">🧠</span><p>Imposter feelings that cap your visibility and leadership voice.</p></div>
+          <div class="list-item"><span class="icon">😵‍💫</span><p>Stress spikes and emotional swings that derail your routines.</p></div>
+          <div class="list-item"><span class="icon">🔁</span><p>Unclear goals and scattered priorities that keep you busy, not better.</p></div>
+          <div class="list-item"><span class="icon">🧭</span><p>Habits that don’t stick because they’re not wired to your real drivers.</p></div>
+        </div>
+      </div>
+      <div class="before-after reveal" data-stagger="true">
+        <div class="card">
+          <div class="card-title">Before</div>
+          <p>Stuck, second-guessing, running on autopilot, reacting to stress.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">After</div>
+          <p>Decisive, clear on priorities, regulating emotions, moving with intent.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container ready reveal" data-stagger="true" style="align-items:center; text-align:center;">
+    <div><strong>Ready?</strong> Address your biggest blocker in the next session.</div>
+    <a class="btn btn-primary strip-green" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session</a>
+  </div>
+
+  <!-- Services -->
+  <section class="section" id="services">
+    <div class="container reveal">
+      <div class="section-head">
+        <div class="section-title">
+          <span class="section-eyebrow">Services</span>
+          <h2>Offers designed for tangible shifts</h2>
+        </div>
+        <p class="section-intro">Pick the path that fits your current season—each one keeps you moving with clarity.</p>
+      </div>
+      <div class="service-grid reveal" data-stagger="true">
+        <div class="card service-card"><div style="font-size:26px;">🗣️</div><h3>Talk Therapy Sessions</h3><p>Professional one-on-one counseling in a safe, non-judgmental space where you can openly express yourself and work through life's challenges with expert guidance.</p><a class="btn-link" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session →</a></div>
+        <div class="card service-card"><div style="font-size:26px;">🧠</div><h3>NLP Techniques</h3><p>Powerful Neuro-Linguistic Programming methods to rewire negative thought patterns, overcome limiting beliefs, and create lasting behavioral change.</p><a class="btn-link" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session →</a></div>
+        <div class="card service-card"><div style="font-size:26px;">🎯</div><h3>Life Coaching</h3><p>Goal-oriented coaching sessions designed to help you gain clarity, set meaningful objectives, and create actionable strategies for personal and professional success.</p><a class="btn-link" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session →</a></div>
+        <div class="card service-card"><div style="font-size:26px;">🌙</div><h3>Hypnotherapy</h3><p>Gentle, therapeutic hypnosis to access your subconscious mind, release deep-seated fears, break unwanted habits, and promote profound healing.</p><a class="btn-link" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session →</a></div>
+        <div class="card service-card"><div style="font-size:26px;">💗</div><h3>Emotional Healing</h3><p>Compassionate support for processing trauma, grief, and emotional pain. Learn healthy coping mechanisms and rediscover inner peace and emotional balance.</p><a class="btn-link" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session →</a></div>
+        <div class="card service-card"><div style="font-size:26px;">🧭</div><h3>Mindset Coaching</h3><p>Transform your mindset from fixed to growth-oriented. Develop resilience, self-confidence, and the mental strength to overcome any obstacle.</p><a class="btn-link" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session →</a></div>
+        <div class="card service-card"><div style="font-size:26px;">✨</div><h3>Transformation Coaching</h3><p>Comprehensive personal development programs for holistic life transformation. Create lasting change in relationships, career, health, and overall wellbeing.</p><a class="btn-link" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session →</a></div>
+        <div class="card service-card"><div style="font-size:26px;">🩺</div><h3>All Types of Counseling</h3><p>Expert support for anxiety, depression, relationship issues, career challenges, stress management, and all aspects of mental health and personal growth.</p><a class="btn-link" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container ready reveal" data-stagger="true" style="align-items:center; text-align:center;">
+    <div><strong>Ready?</strong> Your first breakthrough can start this week.</div>
+    <a class="btn btn-primary strip-green" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session</a>
+  </div>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="container two-col reveal">
+      <div>
+        <img src="profile.jpeg" alt="Isha Kapoor – ICF & NLP Certified Coach" style="width:100%; height:auto; display:block; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border);" />
+      </div>
+      <div>
+        <div class="section-head">
+          <div class="section-title">
+            <span class="section-eyebrow">About Isha</span>
+            <h2>The coach in your corner</h2>
+          </div>
+        </div>
+        <p>Are you struggling with anxiety or sleep disorders? Is anxiety keeping your mind restless? Do you often lie awake at night, unable to sleep? Wake up feeling tired, no matter how long you slept?</p>
+        <p>I understand these challenges deeply because I’ve helped countless individuals break free from them. As an ICF and NLP certified professional, I combine proven therapeutic techniques with compassionate, personalized care to help you achieve lasting transformation.</p>
+        <p>Whether you’re seeking support for anxiety, career guidance, relationship counseling, or emotional healing, I’m here to guide you toward the peace and fulfillment you deserve.</p>
+        <div class="card" style="margin-top: var(--space-16);">
+          <div class="card-title">Professional Credentials</div>
+          <ul style="margin:0; padding-left: 18px; color: var(--muted); line-height: 1.6;">
+            <li>ICF Certified - International Coaching Federation</li>
+            <li>All Type Of Counceling</li>
+            <li>NLP Certified Practitioner</li>
+            <li>Mental Health Counseling Expert</li>
+            <li>Transformation & Mindset Coach</li>
+          </ul>
+        </div>
+        <div class="cta-wrap" style="margin-top: var(--space-16); flex-wrap: wrap;">
+          <a class="btn btn-primary" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer" style="margin: 0 auto; display: inline-flex;">Book Transformation Session</a>
+          <a class="btn btn-secondary" href="#faq" target="_blank" rel="noopener noreferrer">View FAQs</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Book Section -->
+  <section id="book" class="section section--tint-yellow book-section">
+    <div class="container reveal">
+      <div class="card reveal" data-stagger="true">
+        <div class="book-grid">
+          <div>
+            <div class="section-head">
+              <div class="section-title">
+                <span class="section-eyebrow">New</span>
+                <h2 style="font-size: clamp(38px, 5vw, 58px); font-weight: 850; margin-bottom: 6px;">भूतप्रेत or Mental Health</h2>
+                <div style="color: var(--muted); font-size: 16px; font-weight: 600;">by Esha Kapoor</div>
+              </div>
+              <p class="section-intro">A groundbreaking exploration of mental health from both traditional and modern perspectives. This book bridges ancient wisdom with contemporary mental health practices, offering readers practical insights into understanding and healing the mind.</p>
+            </div>
+            <blockquote style="margin: 0 0 var(--space-16); padding: var(--space-12); background: rgba(255,255,255,0.8); border-left: 4px solid rgba(0,0,0,0.08); color: var(--muted); font-style: italic;">"Essential reading for anyone seeking to understand the intersection of cultural beliefs and mental wellness. A compassionate guide to breaking stigma and embracing healing."</blockquote>
+            <a class="btn btn-primary" href="https://www.amazon.in/dp/9371645539?fbclid=PAdGRzdgNggjhleHRuA2FlbQIxMQABp2xzoyHWKotOTpYVv72J2ebhltP7SpGHjcScV_K8vrcKKaxrA4gRbjr1Q21z_aem_5xRAOMY73nQD9LQKR25S2g" target="_blank" rel="noopener noreferrer" style="margin: 0 auto; display: inline-flex;">Get the Book</a>
+          </div>
+          <div>
+            <img src="book.jpg" alt="Book cover – भूतप्रेत or Mental Health by Esha Kapoor" style="width:100%; height:auto; display:block; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow);" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container ready reveal" data-stagger="true" style="align-items:center; text-align:center;">
+    <div><strong>Ready?</strong> Secure your Transformation Session and pair it with the workbook.</div>
+    <a class="btn btn-primary strip-green" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session</a>
+  </div>
+
+  <!-- Testimonials -->
+  <section class="section">
+    <div class="container reveal">
+      <div class="section-head">
+        <div class="section-title">
+          <span class="section-eyebrow">Proof</span>
+          <h2>Testimonials</h2>
+        </div>
+        <p class="section-intro">Snapshots from people who moved from stuck to steady action.</p>
+      </div>
+      <div class="swipe-hint" aria-hidden="true" style="display:none;">Swipe →</div>
+      <div class="testimonials-wrapper">
+        <div class="testimonials reveal" data-stagger="true">
+          <div class="card">
+            <div class="testimonial-stars">★ ★ ★ ★ ★</div>
+            <div class="card-title">Rahul Iyer — Bengaluru | Product Manager</div>
+            <p>“The coaching sessions helped me break limiting beliefs I didn’t even realize I had. I’m clearer, more focused, and finally confident in my career decisions.”</p>
+          </div>
+          <div class="card">
+            <div class="testimonial-stars">★ ★ ★ ★ ☆</div>
+            <div class="card-title">Neha Kapoor — Gurgaon | Marketing Consultant</div>
+            <p>“Talk therapy combined with mindset coaching was a game-changer for me. I’ve learned how to manage stress, set boundaries, and show up as a stronger version of myself.”</p>
+          </div>
+          <div class="card">
+            <div class="testimonial-stars">★ ★ ★ ★ ★</div>
+            <div class="card-title">Ankit Verma — Indore | Startup Founder</div>
+            <p>“Overthinking aur self-doubt meri growth rok raha tha. NLP aur mindset coaching ke through mujhe apni patterns samajh aaye, business aur personal dono level pe breakthrough hua.”</p>
+          </div>
+          <div class="card">
+            <div class="testimonial-stars">★ ★ ★ ★ ☆</div>
+            <div class="card-title">Ritu Sharma — Delhi | HR Manager</div>
+            <p>“Main mentally bahut stuck thi. Sessions ke baad clarity mili, confidence aaya, aur decision-making ka fear chala gaya. Life ko ek naya direction mil gaya.”</p>
+          </div>
+          <div class="card">
+            <div class="testimonial-stars">★ ★ ★ ★ ★</div>
+            <div class="card-title">Daniel Wong — Singapore | Strategy Analyst</div>
+            <p>“The sessions were deeply insightful and practical. I experienced real emotional release and mental clarity within weeks, something I hadn’t achieved in years.”</p>
+          </div>
+          <div class="card">
+            <div class="testimonial-stars">★ ★ ★ ★ ☆</div>
+            <div class="card-title">Pooja Mehta — Mumbai | Freelance Designer</div>
+            <p>“Emotional healing sessions ne mujhe andar se halka kar diya. Pehli baar laga ki koi bina judge kiye genuinely samajh raha hai. I feel calmer and more in control now.”</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container ready reveal" data-stagger="true" style="align-items:center; text-align:center;">
+    <div><strong>Ready?</strong> Bring these kinds of results to your life next.</div>
+    <a class="btn btn-primary strip-green" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session</a>
+  </div>
+
+  <!-- Media -->
+  <section class="section">
+    <div class="container reveal">
+      <div class="section-head">
+        <div class="section-title">
+          <span class="section-eyebrow">Glimpse</span>
+          <h2>A glimpse of some important moments</h2>
+        </div>
+        <p class="section-intro">Workshops, reels, and moments</p>
+      </div>
+      <div class="media-grid reveal" data-stagger="true">
+        <div class="media-tile">
+          <video src="v1.mp4" controls preload="metadata" playsinline></video>
+        </div>
+        <div class="media-tile">
+          <video src="v2.mp4" controls preload="metadata" playsinline></video>
+        </div>
+        <div class="media-tile">
+          <video src="v3.mp4" controls preload="metadata" playsinline></video>
+        </div>
+        <div class="media-tile">
+          <video src="v4.mp4" controls preload="metadata" playsinline></video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container ready reveal" data-stagger="true" style="align-items:center; text-align:center;">
+    <div><strong>Ready?</strong> Let’s tailor your next breakthrough together.</div>
+    <a class="btn btn-primary strip-green" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session</a>
+  </div>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="container reveal">
+      <div class="section-head">
+        <div class="section-title">
+          <span class="section-eyebrow">FAQ</span>
+          <h2>What you might be wondering</h2>
+        </div>
+        <p class="section-intro">Quick answers to common questions about the Transformation Session and coaching.</p>
+      </div>
+      <div class="card reveal" data-stagger="true">
+      <div class="accordion" role="region" aria-label="Frequently Asked Questions">
+        <div class="accordion-item">
+          <button class="accordion-button" type="button" id="faq-trigger-1" aria-expanded="false" aria-controls="faq-panel-1">What happens in the Transformation Session?<span aria-hidden="true">➕</span></button>
+          <div class="accordion-panel" id="faq-panel-1" role="region" aria-labelledby="faq-trigger-1"><p>We map your goals, surface current blocks, and outline a clear, practical plan with 1-2 tools you can use immediately.</p></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-button" type="button" id="faq-trigger-2" aria-expanded="false" aria-controls="faq-panel-2">How is this different from therapy?<span aria-hidden="true">➕</span></button>
+          <div class="accordion-panel" id="faq-panel-2" role="region" aria-labelledby="faq-trigger-2"><p>Coaching is forward-looking and action-oriented. We focus on goals, behaviors, and tools you can apply now; it’s not a substitute for clinical mental health care.</p></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-button" type="button" id="faq-trigger-3" aria-expanded="false" aria-controls="faq-panel-3">Do I need to prepare anything?<span aria-hidden="true">➕</span></button>
+          <div class="accordion-panel" id="faq-panel-3" role="region" aria-labelledby="faq-trigger-3"><p>Bring 1-2 priorities or situations you want to improve. I’ll guide you through the rest.</p></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-button" type="button" id="faq-trigger-4" aria-expanded="false" aria-controls="faq-panel-4">How soon can I see results?<span aria-hidden="true">➕</span></button>
+          <div class="accordion-panel" id="faq-panel-4" role="region" aria-labelledby="faq-trigger-4"><p>Many clients feel clarity and calm after the first call; sustained results come from applying the tools we set together.</p></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-button" type="button" id="faq-trigger-5" aria-expanded="false" aria-controls="faq-panel-5">Is everything confidential?<span aria-hidden="true">➕</span></button>
+          <div class="accordion-panel" id="faq-panel-5" role="region" aria-labelledby="faq-trigger-5"><p>Yes. Sessions are private and judgement-free, with professional standards.</p></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-button" type="button" id="faq-trigger-6" aria-expanded="false" aria-controls="faq-panel-6">How often are sessions?<span aria-hidden="true">➕</span></button>
+          <div class="accordion-panel" id="faq-panel-6" role="region" aria-labelledby="faq-trigger-6"><p>We can start with weekly or biweekly depending on your goals and bandwidth.</p></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-button" type="button" id="faq-trigger-7" aria-expanded="false" aria-controls="faq-panel-7">Do you provide follow-ups?<span aria-hidden="true">➕</span></button>
+          <div class="accordion-panel" id="faq-panel-7" role="region" aria-labelledby="faq-trigger-7"><p>Yes, you’ll get a post-session action plan and an accountability check-in.</p></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-button" type="button" id="faq-trigger-8" aria-expanded="false" aria-controls="faq-panel-8">What if I’m unsure about coaching?<span aria-hidden="true">➕</span></button>
+          <div class="accordion-panel" id="faq-panel-8" role="region" aria-labelledby="faq-trigger-8"><p>The Transformation Session is a low-commitment way to experience the process and see if it fits your needs.</p></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-button" type="button" id="faq-trigger-9" aria-expanded="false" aria-controls="faq-panel-9">Can we work on both career and personal goals?<span aria-hidden="true">➕</span></button>
+          <div class="accordion-panel" id="faq-panel-9" role="region" aria-labelledby="faq-trigger-9"><p>Absolutely—your work, relationships, and wellbeing are connected. We address them holistically.</p></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-button" type="button" id="faq-trigger-10" aria-expanded="false" aria-controls="faq-panel-10">Do you offer corporate sessions?<span aria-hidden="true">➕</span></button>
+          <div class="accordion-panel" id="faq-panel-10" role="region" aria-labelledby="faq-trigger-10"><p>Yes, team workshops and leadership coaching can be arranged—reach out to discuss.</p></div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bonus -->
+  <section class="section section--tint-teal bonus">
+    <div class="container reveal">
+      <div class="card reveal" data-stagger="true">
+        <div class="section-head">
+          <div class="section-title">
+            <span class="section-eyebrow">Bonus</span>
+            <h2>🎁 Post-session action plan + 7 day accountability check-in</h2>
+          </div>
+          <p class="section-intro">Lock in your next steps and stay supported as you implement.</p>
+        </div>
+        <div class="cta-wrap" style="margin-top: var(--space-12); flex-wrap: wrap;">
+          <a class="btn btn-primary strip-green" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing CTA -->
+  <section class="section">
+    <div class="container reveal">
+      <div class="card" style="padding: var(--space-24); text-align: center;">
+        <h2>Let’s begin your transformation</h2>
+        <p>Secure your slot this week. Limited sessions to keep coaching personal.</p>
+        <a class="btn btn-primary" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div style="display:flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-12); align-items: center;">
+      <span><strong>IshaMinds</strong> • Transform Your Mind, Transform Your Life</span>
+      <span>Contact: hello@ishaminds.com</span>
+      <span>Results vary. Coaching supports growth; it is not medical advice.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Sticky CTA Strip -->
+<div class="sticky-cta-strip" aria-label="Limited weekly slots">
+  <div class="inner">
+    <div class="cta-note">Only two spots remaining for this week</div>
+    <a class="btn btn-primary strip-green" href="https://healwithesha.exlyapp.com/checkout/0b6c7d16-c756-40f6-a388-b791aefacce1" target="_blank" rel="noopener noreferrer">Book Transformation Session</a>
+  </div>
+</div>
+
+<script>
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const revealTargets = document.querySelectorAll('.reveal');
+const io = (!prefersReduced && 'IntersectionObserver' in window) ? new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      const children = entry.target.dataset.stagger ? Array.from(entry.target.children) : [];
+      children.forEach((child, i) => child.style.transitionDelay = `${i * 0.08}s`);
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 }) : null;
+revealTargets.forEach(el => {
+  if (io) { io.observe(el); } else { el.classList.add('visible'); }
+});
+
+// Scroll progress + navbar state (throttled)
+const progress = document.getElementById('progress');
+const navbar = document.querySelector('.navbar');
+let docHeight = document.documentElement.scrollHeight - window.innerHeight;
+const updateDocHeight = () => { docHeight = document.documentElement.scrollHeight - window.innerHeight; };
+let ticking = false;
+const setProgress = () => {
+  const scrollTop = window.scrollY;
+  const scrolled = docHeight ? (scrollTop / docHeight) * 100 : 0;
+  progress.style.width = scrolled + '%';
+  navbar.classList.toggle('scrolled', scrollTop > 10);
+};
+const onScroll = () => {
+  if (!ticking) {
+    window.requestAnimationFrame(() => { setProgress(); ticking = false; });
+    ticking = true;
+  }
+};
+setProgress();
+window.addEventListener('scroll', onScroll, { passive: true });
+window.addEventListener('resize', () => { updateDocHeight(); setProgress(); });
+
+// Accessible accordion
+const accordions = document.querySelectorAll('.accordion-button');
+accordions.forEach((btn) => {
+  btn.addEventListener('click', () => togglePanel(btn));
+  btn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); togglePanel(btn); }
+  });
+});
+function togglePanel(btn) {
+  const panelId = btn.getAttribute('aria-controls');
+  const panel = document.getElementById(panelId);
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', !expanded);
+  panel.classList.toggle('open', !expanded);
+  panel.style.maxHeight = !expanded ? panel.scrollHeight + 'px' : '0px';
+  btn.querySelector('span[aria-hidden="true"]').textContent = !expanded ? '➖' : '➕';
+  btn.querySelector('span[aria-hidden="true"]').style.transform = !expanded ? 'rotate(180deg)' : 'rotate(0deg)';
+  updateDocHeight();
+}
+
+// Hero video reduce motion
+const heroVideo = document.querySelector('.hero-media video');
+if (prefersReduced && heroVideo) { heroVideo.pause(); }
+
+// Hero text + CTA entrance
+const heroEls = document.querySelectorAll('.reveal-hero');
+if (heroEls.length) {
+  heroEls.forEach((el, idx) => {
+    if (prefersReduced) {
+      el.style.opacity = 1;
+      el.style.transform = 'none';
+      el.style.filter = 'none';
+      return;
+    }
+    el.style.opacity = 0;
+    el.style.transform = 'translateY(12px)';
+    el.style.filter = 'blur(6px)';
+    const delay = (idx * 100) + 150;
+    setTimeout(() => {
+      el.style.transition = 'opacity 700ms cubic-bezier(0.2,0.8,0.2,1), transform 700ms cubic-bezier(0.2,0.8,0.2,1), filter 700ms cubic-bezier(0.2,0.8,0.2,1)';
+      el.style.opacity = 1;
+      el.style.transform = 'translateY(0)';
+      el.style.filter = 'blur(0)';
+    }, delay);
+  });
+}
+
+// Testimonials mobile auto-advance
+(() => {
+  const mobileQuery = window.matchMedia('(max-width: 640px)');
+  const wrapper = document.querySelector('.testimonials-wrapper');
+  const track = document.querySelector('.testimonials-wrapper .testimonials');
+  const hint = document.querySelector('.swipe-hint');
+  if (!wrapper || !track) return;
+  const cards = Array.from(track.querySelectorAll('.card'));
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let index = 0;
+  let timer;
+  let inView = true;
+  const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entries) => {
+    entries.forEach(entry => { inView = entry.isIntersecting; });
+  }, { threshold: 0.3 }) : null;
+  if (io) io.observe(wrapper);
+
+  const scrollToIndex = (i) => {
+    const card = cards[i];
+    if (card) wrapper.scrollTo({ left: card.offsetLeft - 10, behavior: reduced ? 'auto' : 'smooth' });
+  };
+
+  const start = () => {
+    if (reduced || !mobileQuery.matches) return;
+    clearInterval(timer);
+    timer = setInterval(() => {
+      if (!inView) return;
+      index = (index + 1) % cards.length;
+      scrollToIndex(index);
+    }, 4000);
+  };
+  const stop = () => { clearInterval(timer); };
+
+  ['touchstart', 'pointerdown', 'wheel', 'scroll'].forEach(evt => {
+    wrapper.addEventListener(evt, stop, { passive: true });
+  });
+  ['touchend', 'pointerup'].forEach(evt => {
+    wrapper.addEventListener(evt, () => setTimeout(start, 2000), { passive: true });
+  });
+  if (mobileQuery.matches && hint) hint.style.display = 'inline-flex';
+  if (!mobileQuery.matches && hint) hint.style.display = 'none';
+  mobileQuery.addEventListener('change', (e) => {
+    if (e.matches) {
+      if (hint) hint.style.display = 'inline-flex';
+      start();
+    } else {
+      if (hint) hint.style.display = 'none';
+      stop();
+    }
+  });
+  start();
+})();
+
+</script>
+</body>
+</html>
