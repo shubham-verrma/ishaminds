@@ -7,6 +7,23 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1905294300390612');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1905294300390612&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 <style>
 :root {
   --color-a: rgb(207,231,234);
@@ -974,6 +991,24 @@ if (heroEls.length) {
     }
   });
   start();
+})();
+
+// Meta Pixel CTA events
+(() => {
+  if (typeof fbq !== 'function') return;
+  const bookingLinks = document.querySelectorAll('a[href*="healwithesha.exlyapp.com/checkout/0b6c7d16"]');
+  const exploreLinks = Array.from(document.querySelectorAll('a')).filter(a => a.textContent.trim() === 'Explore Services');
+  const eventId = () => `evt_${Math.random().toString(36).slice(2)}_${Date.now()}`;
+  bookingLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      fbq('track', 'Lead', {}, { eventID: eventId() });
+    }, { passive: true });
+  });
+  exploreLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      fbq('track', 'ViewContent', {}, { eventID: eventId() });
+    }, { passive: true });
+  });
 })();
 
 </script>
